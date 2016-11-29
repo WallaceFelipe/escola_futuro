@@ -53,6 +53,7 @@
         }
 
         public function carregaAvaliacao() {
+
             $db = new Conexao();
 
             $result = $db->select('*')->from('avaliacao')->where('turma_idturma = '.$this->idturma.'')->orderby('idavaliacao')->executeNGet();
@@ -72,6 +73,7 @@
             }
 
             $this->avaliacaoList = $avaliacoes;
+            return $avaliacoes;
         }
 
         

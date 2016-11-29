@@ -95,7 +95,7 @@ $alunos = $conexao->select('*')->from('turma t, professor p')->where("t.professo
 						<td><?php echo $a['disciplina_codigo']; ?></td>
 						<td><?php echo $a['nome']; ?></td>
 						<td><?php echo $a['horario']; ?></td>
-						<td><?php echo $cont; ?> 
+						<td><?php echo $cont; ?></td> 
 						<button 
 							type="button" 
 							onclick="listar_alunos('<?php echo $a['idturma']; ?>');"

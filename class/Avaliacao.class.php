@@ -69,6 +69,29 @@
             } 
 
             $this->questoes = $questoes;
+            return $questoes;
         }
+
+        public function AlunoJaFezAvaliacao($aluno){
+
+            $db = new Conexao();
+
+            $aluno     = $db->escape($aluno);
+            $avaliacao = $this->idavaliacao;
+
+            $rs = $db
+                    ->select('count(*) as n')
+                    ->from('nota')
+                    ->where("avaliacao_idavaliacao = '$avaliacao' and aluno_matricula = '$aluno'")
+                    ->limit(1)
+                    ->executeNGet('n');
+
+            if($rs == '1')
+                return true;
+            else
+                return false;
+
+        }
+
     }
 

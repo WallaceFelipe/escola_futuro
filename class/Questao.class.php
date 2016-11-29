@@ -17,6 +17,19 @@
             unset($idquestao);
         }
 
+        public function get_resposta_correta(){
+
+            $db = new Conexao();
+
+            return $db
+                    ->select('resposta')
+                    ->from("questao")
+                    ->where("idquestao = '".$this->idquestao."'")
+                    ->limit(1)
+                    ->executeNGet('resposta');
+
+        }
+
         public function save() {         
             $db = new Conexao();
 

@@ -37,6 +37,7 @@
             if ($result) {
                 $objeto = new Professor();
                 $objeto->nome = $result['nome'];
+                $objeto->idprofessor = $result['idprofessor'];
                 $objeto->codigo = $result['codigo'];
                 $objeto->senha = $result['senha'];
                 $objeto->login = $result['login'];
