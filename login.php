@@ -1,11 +1,11 @@
 <?php
 	require_once('class/Conexao.class.php');
-	require_once('class/Usuario.class.php');
+	require_once('class/Autenticacao.class.php');
 	
 
 	if (isset($_POST['acao']) && $_POST['acao'] == 'logar') {
 
-		// Fazer do jeito abaixo possibilita um MYSQLInjection
+		/* Fazer do jeito abaixo possibilita um MYSQLInjection
 		$login = $_POST['login'];
 		$senha = $_POST['senha'];
 
@@ -18,30 +18,24 @@
 		//$id = $conexao->select('id')->from('usuario')->where("login = '$login' and senha = '$senha'")->executeNGet();
 		//$id = $id[0]['id'];
 
-		$id = $conexao->select('id')->from('usuario')->where("login = '$login' and senha = '$senha'")->limit(1)->executeNGet('id');
-
+		$id = $conexao->select('id')->from('usuario')->where("login = '$login' and senha = '$senha'")->limit(1)->executeNGet('id');*/
+		$autentic = new Autenticacao();
+		
+		$id = $autentic->autenticar($_POST['tipo'], $_POST['login'], $_POST['senha']);
+		
 		if($id) {
 			session_start();
 			$_SESSION['logado'] = true;
-			$_SESSION['usuario'] = new Usuario($id);
-			if (isset($_SESSION['idfinanciado'])) {
-				$url = 'Location: index_public.php?p=financiar_projeto&id='.$_SESSION['idfinanciado'];
-			}else
-				if ($_SESSION['usuario']->tipo == 'usuariopublico') {
-					$url = 'Location: index_public.php';	
-				} else {
-					$url = 'Location: index.php';
-				}
-			header($url);
+			$_SESSION['usuario'] = $id;
+			
+			
+			header('Location: index.php');
 		}
 
 		$msg = "Login ou senha inválido. Tente novamente!";
 
 	}
 
-	if(isset($_GET['c']) && $_GET['c'] == 'ok') {
-		$msg = "Cadastro realizado com sucesso! Por favor, faça seu login.";
-	}
 ?>
 
 <!DOCTYPE html>
@@ -80,10 +74,17 @@
 							<div class="form-group">
 								<input class="form-control" placeholder="Senha" name="senha" type="password" value="" required>
 							</div>
+
+							<div class="form-group">
+								<label for="tipo">Tipo de Acesso</label>
+								<select name="tipo" id="tipo" class="form-control">
+									<option value="aluno">Aluno</option>
+									<option value="professor">Professor</option>
+									<option value="funcionario">Funcionario</option>
+								</select>
+							</div>
 							<button type="submit" name='acao' value='logar' class="btn btn-primary">Login</button>
 						</fieldset>
-						</br>
-						<p>Ainda não se é membro? <a href="cadastro.php">Cadastre-se!</a></p>
 					</form>
 				</div>
 			</div>

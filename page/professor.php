@@ -8,8 +8,8 @@ if($_GET['deletar']){
 	$prof = intval($_GET['deletar']);
 	$res = $conexao->execute("delete from professor where idprofessor = '$prof'");
 
-	if($res)
-		echo "<script>alert('Professor deletado!');</script>";
+	//if($res)
+	//	echo "<script>alert('Professor deletado!');</script>";
 
 }
 

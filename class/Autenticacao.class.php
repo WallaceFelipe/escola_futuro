@@ -4,34 +4,35 @@
     require_once('Aluno.class.php');
     require_once('Funcionario.class.php');
 
-    class Autenticar
+    class Autenticacao
     {
         public function autenticar($ator, $login, $senha) {
             $db = new Conexao();
             $login = $db->escape($login);
             $senha = $db->escape($senha);
-
+            
+            
             switch ($ator) {
                 case 'professor':
-                    $resultado = prof_auth($db, $login, $senha);
+                    $resultado = $this->prof_auth($db, $login, $senha);
                     break;
                 case 'aluno':
-                    $resultado = aluno_auth($db, $login, $senha);
+                    $resultado = $this->aluno_auth($db, $login, $senha);
                     break;
                 case 'funcionario':
-                    $resultado = func_auth($db, $login, $senha);
+                    $resultado = $this->func_auth($db, $login, $senha);
                     break;
                 default:
                     $resultado = null;
                     break;
             }
-            
+            var_dump($resultado);
             return $resultado;
         }
 
 
         private function prof_auth($db, $login, $senha) {
-            $result = $db->select("*")->from("professor")->where('login = $login and senha = $senha')->limit(1)->exercuteNGet();
+            $result = $db->select("*")->from("professor")->where('login = "'.$login.'" and senha = "'.$senha.'"')->limit(1)->executeNGet();
 
             if ($result) {
                 $objeto = new Professor();
@@ -53,8 +54,8 @@
         }
         
         private function aluno_auth($db, $login, $senha) {
-            $result = $db->select("*")->from("aluno")->where('login = $login and senha = $senha')->limit(1)->exercuteNGet();
-
+            $result = $db->select("*")->from("aluno")->where('login = "'.$login.'" and senha = "'.$senha.'"')->limit(1)->executeNGet();
+            
             if ($result) {
                 $objeto = new Aluno();
                 $objeto->nome = $result['nome'];
@@ -75,8 +76,9 @@
         }
 
         private function func_auth($db, $login, $senha) {
-            $result = $db->select("*")->from("funcionario")->where('login = $login and senha = $senha')->limit(1)->exercuteNGet();
-
+            
+            $result = $db->select("*")->from("funcionario")->where('login = "'.$login.'" and senha = "'.$senha.'"')->limit(1)->executeNGet();
+            
             if ($result) {
                 $objeto = new Funcionario();
                 $objeto->nome = $result['nome'];
@@ -86,7 +88,6 @@
             } else {
                 $objeto = null;
             }
-
             return $objeto;
         }
 

@@ -3,9 +3,9 @@
 
     class Funcionario {
         public $nome;
-        public $codgio;
+        public $idfuncionario;
         public $login;
-        private $senha;
+        public $senha;
  
         public function __construct() {
             unset($this->codigo);
