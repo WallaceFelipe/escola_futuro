@@ -7,7 +7,7 @@
 	if (!($_SESSION['logado'] == true)) {
 		header('Location: login.php');
 	}
-	$id = $_SESSION['usuario'];
+	$user = $_SESSION['usuario'];
 	
 	switch (get_class($_SESSION['usuario'])) {
 			case 'Funcionario':

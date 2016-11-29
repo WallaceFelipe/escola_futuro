@@ -1,5 +1,7 @@
 <?php
 
+    require_once('Avaliacao.class.php');
+
     class Turma 
     {
         // propriedades referentes a tabela no banco
@@ -51,7 +53,25 @@
         }
 
         public function carregaAvaliacao() {
+            $db = new Conexao();
 
+            $result = $db->select('*')->from('avaliacao')->where('turma_idturma = '.$this->idturma.'')->orderby('idavaliacao')->executeNGet();
+            
+            $avaliacoes = [];
+
+            foreach ($result as $avaliacao) {
+                $tmp = new Avaliacao();
+
+                $tmp->idavaliacao = $avaliacao['idavaliacao'];
+                $tmp->status = $avaliacao['status'];
+                $tmp->turma_idturma = $avaliacao['turma_idturma'];
+
+                $tmp->carregaQuestoes();
+
+                $avaliacoes[] = $tmp;
+            }
+
+            $this->avaliacaoList = $avaliacoes;
         }
 
         

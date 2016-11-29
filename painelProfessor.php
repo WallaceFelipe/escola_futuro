@@ -17,10 +17,10 @@ if(isset($_GET['p']))
 		<ul class="nav menu">
 			<!-- Menu que chama as pages -->
 			<li <?php if ($_GET['p'] == 'inicio' || empty($_GET['p'])) echo "class='active'"; ?> ><a href="index.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
-			<li <?php if ($_GET['p'] == 'Turma') echo "class='active'"; ?> ><a href="index.php?p=professor"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Minhas Turmas</a></li>
-			<li <?php if ($_GET['p'] == 'aluno') echo "class='active'"; ?> ><a href="index.php?p=aluno"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Alunos</a></li>
+			<li <?php if ($_GET['p'] == 'Turma') echo "class='active'"; ?> ><a href="index.php?p=professor_turmas"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Minhas Turmas</a></li>
+			<!--<li <?php if ($_GET['p'] == 'aluno') echo "class='active'"; ?> ><a href="index.php?p=aluno"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Alunos</a></li>
 			<li <?php if ($_GET['p'] == 'disciplina') echo "class='active'"; ?> ><a href="index.php?p=disciplina"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Disciplinas</a></li>
-			<li <?php if ($_GET['p'] == 'turma') echo "class='active'"; ?> ><a href="index.php?p=turma"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Turmas</a></li>
+			<li <?php if ($_GET['p'] == 'turma') echo "class='active'"; ?> ><a href="index.php?p=turma"><svg class="glyph stroked male user"><use xlink:href="#stroked-male-user"></use></svg> Turmas</a></li>-->
 		</ul>
 
 	</div><!--/.sidebar-->

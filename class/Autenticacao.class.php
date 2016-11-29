@@ -42,10 +42,20 @@
                 $objeto->login = $result['login'];
 
                 // Query que lista as informações das turmas que o professor leciona
+                $resultado_turmas = [];
                 $turmas = $db->execute("SELECT turma.*, disciplina.nome FROM turma JOIN disciplina ON turma.disciplina_codigo = disciplina.codigo WHERE turma.professor_idprofessor = ".$result['idprofessor']);
                 foreach ($turmas as $turma) {
-                    # criar turma
+                    $tmp = new Turma();
+                    $tmp->idturma = $turma['idturma'];
+                    $tmp->disciplina_codigo = $turma['disciplina_codigo'];
+                    $tmp->professor_idprofessor = $turma['professor_idprofessor'];
+                    $tmp->horario = $turma['horario'];
+                    $tmp->disciplina_nome = $turma['nome'];
+
+                    $resultado_turmas[] = $tmp;
+                    
                 }
+                $objeto->turmas = $resultado_turmas;
             } else {
                 $objeto = null;
             }
@@ -66,8 +76,16 @@
                 // Query que lista as informações das turmas que o aluno está matriculado
                 $turmas = $db->execute("SELECT turma.*, disciplina.nome FROM turma_aluno JOIN turma ON turma_aluno.turma_idturma = turma.idturma JOIN disciplina ON turma.disciplina_codigo = disciplina.codigo WHERE turma_aluno.aluno_matricula = ".$result['matricula']);
                 foreach ($turmas as $turma) {
-                    # criar turma
+                    $tmp = new Turma();
+                    $tmp->idturma = $turma['idturma'];
+                    $tmp->disciplina_codigo = $turma['disciplina_codigo'];
+                    $tmp->professor_idprofessor = $turma['professor_idprofessor'];
+                    $tmp->horario = $turma['horario'];
+                    $tmp->disciplina_nome = $turma['nome'];
+
+                    $resultado_turmas[] = $tmp;
                 }
+                $objeto->turmas = $resultado_turmas;
             } else {
                 $objeto = null;
             }
