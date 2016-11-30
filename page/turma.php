@@ -96,16 +96,13 @@ $alunos = $conexao->select('*')->from('turma t, professor p')->where("t.professo
 						<td><?php echo $a['nome']; ?></td>
 						<td><?php echo $a['horario']; ?></td>
 						<td><?php echo $cont; ?></td> 
-						<button 
-							type="button" 
-							onclick="listar_alunos('<?php echo $a['idturma']; ?>');"
-							class="btn btn-xs"
-							
-							>
-								ver alunos
-							</button></td>
+						</td>
 						<td class="text-right">
-							
+							<button type="button" 
+							onclick="listar_alunos('<?php echo $a['idturma']; ?>');"
+							class="btn btn-xs btn-info">
+								ver alunos
+							</button>
 
 							<button type="button" 
 							onclick="location.href='index.php?p=tur_editar&codigo=<?php echo $a['idturma']; ?>';" 

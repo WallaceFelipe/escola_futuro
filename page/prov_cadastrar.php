@@ -19,8 +19,11 @@ if($_POST['concluir']){
 
 		$tmp = new Questao();
 		$tmp->idquestao = $idquestao;
+		
 		if($resposta == $tmp->get_resposta_correta())
 			$acertos++;
+		
+		echo "<script>alert('$idquestao  =>   $resposta  ::  ".$tmp->get_resposta_correta()."');</script>";
 
 	}
 
@@ -32,15 +35,15 @@ if($_POST['concluir']){
 	$res = $conexao->insert('nota', $final);
 
 	// quantidade de pessoas que deveria ter feito a prova
-	$cont = $conexao->select('count(*) as n')->from("turma_aluno")->where("turma_idturma = in (select turma_idturma from avaliacao where idavaliacao = '".$prova->idavaliacao."')")->executeNGet('n');
+	//$cont = $conexao->select('count(*) as n')->from("turma_aluno")->where("turma_idturma = in (select turma_idturma from avaliacao where idavaliacao = '".$prova->idavaliacao."')")->executeNGet('n');
 	// verifica se todos alunos ja fizeram a prova
-	$cont2 = $conexao->select('count(*) as n')->from("nota")->where("avaliacao_idavaliacao = '$prova->idavaliacao'")->executeNGet('n');
+	//$cont2 = $conexao->select('count(*) as n')->from("nota")->where("avaliacao_idavaliacao = '$prova->idavaliacao'")->executeNGet('n');
 	// fim
-	if(intval($cont) == intval($cont2)){ // se todos os alunos ja fizeram a prova, marca ela como feita
+	//if(intval($cont) == intval($cont2)){ // se todos os alunos ja fizeram a prova, marca ela como feita
 		$temp = array();
 		$temp['status'] = 1;
 		$conexao->update('avaliacao', $temp, $prova->idavaliacao, 'idavaliacao');
-	}
+	//}
 
 	$nota = $nota*100;
 	$nota = $nota."/100";

@@ -1,4 +1,18 @@
 <?php
+	
+	if($_GET['aval']) {
+		var_dump($_GET['aval']);
+		include_once('class/Avaliacao.class.php');
+		
+		$avaliacao = new Avaliacao();
+		
+		if($avaliacao->delete($_GET['aval'])) {
+			echo '<script>alert("Avaliação apagada!")</script>';
+		} else {
+			echo '<script>alert("Um erro inesperado aconteceu ao apagar a avaliação. Tente novamente.")</script>';
+		}
+	}
+	
 	$turma = $user->turmas[$_GET['id']];
 	$turma->carregaAvaliacao();
 	
@@ -34,7 +48,7 @@
 
 				Lista de Avaliações
 
-				<button type="button" onclick="location.href='index.php?p=avaliacao_cadastrar';" class="btn btn-primary pull-right">Cadastrar Avaliação</button>
+				<button type="button" onclick="location.href='index.php?p=avaliacao_cadastrar&t=<?php echo $_GET['id'];?>';" class="btn btn-primary pull-right">Cadastrar Avaliação</button>
 			
 				
 			</div>
@@ -45,7 +59,7 @@
 						<th>#</th>
 						<th>Avaliação</th>
 						<th>Status</th>
-						<th></th>
+						<th>Ação</th>
 					</tr>
 					<?php foreach($turma->avaliacaoList as $k => $avaliacao){ ?>
 					<tr>
@@ -54,12 +68,13 @@
 						<?php if($avaliacao->status == 0) { ?>
 							<td><?php echo 'Não respondido';?></td>
 
-							<td class="text-right">
-								<button type="button" onclick="location.href='index.php?p=professor_avaliacoes&id=<?php echo $turma->idturma; ?>';" class="btn btn-sm btn-default">editar</button>
-								<button type="button" onclick="location.href='index.php?p=professor_alunos&id=<?php echo $turma->idturma; ?>';" class="btn btn-sm btn-danger">deletar</button>
+							<td>
+								<button type="button" onclick="location.href='index.php?p=avaliacao_editar&id=<?php echo $avaliacao->idavaliacao; ?>&t=<?php echo $_GET['id'];?>';" class="btn btn-sm btn-default">editar</button>
+								<button type="button" onclick="location.href='index.php?p=professor_avaliacoes&aval=<?php echo $avaliacao->idavaliacao; ?>&id=<?php echo $_GET['id'];?>';" class="btn btn-sm btn-danger">deletar</button>
 							</td>
 						<?php }else { ?>
 							<td><?php echo 'Respondido';?></td>
+							<td></td>
 						<?php } ?>  
 					</tr>
 					<?php } ?>

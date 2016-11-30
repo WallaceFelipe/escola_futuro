@@ -51,7 +51,6 @@
 						<td><?php echo $turma->horario; ?></td>
 						<td class="text-right">
 							<button type="button" onclick="location.href='index.php?p=professor_avaliacoes&id=<?php echo $k; ?>';" class="btn btn-sm btn-success">avaliações</button>
-							<button type="button" onclick="location.href='index.php?p=professor_alunos&id=<?php echo $k; ?>';" class="btn btn-sm btn-info">alunos</button>
 						</td>
 					</tr>
 					<?php } ?>

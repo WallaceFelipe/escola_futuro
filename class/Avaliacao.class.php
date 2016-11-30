@@ -14,7 +14,7 @@
             unset($idavaliacao);
         }
 
-        public function save() {         
+        public function save($questoes) {         
             $db = new Conexao();
 
             $array = array(
@@ -24,22 +24,38 @@
             if (!isset($this->idavaliacao)) {
                 $db->insert('avaliacao', $array);
                 $this->idavaliacao = $db->getCodigo();
+                foreach ($questoes as $questao) {
+                    $array = array(
+                        'questao_idquestao' => $questao,
+                        'avaliacao_idavaliacao' => $this->idavaliacao
+                    );
+
+                    $db->insert('questao_avaliacao', $array);
+
+                }
                 return true;
             } else {
-                return $db->update('avaliacao', $array, $this->idavaliacao, 'idavaliacao');
+                $db->execute("delete from questao_avaliacao where avaliacao_idavaliacao = '$this->idavaliacao'");
+                foreach ($questoes as $questao) {
+                    $array = array(
+                        'questao_idquestao' => $questao,
+                        'avaliacao_idavaliacao' => $this->idavaliacao
+                    );
+
+                    $db->insert('questao_avaliacao', $array);
+
+                }
+                return true;
             }
 
         }
 
-        // Deleta a avalaição, porem verifica se ela não foi respondida.
-        public function delete() {
+        
+        public function delete($id) {
             $db = new Conexao();
-            if ($this->status == 1) {
-                return false;
-            }
             
-            if($db->execute("DELETE FROM questao_avaliacao WHERE avaliacao_idavaliacao = $this->idavaliacao")) {
-                $db->execute("DELETE FROM avaliacao WHERE idturma = $this->idavaliacao");
+            if($db->execute("DELETE FROM questao_avaliacao WHERE avaliacao_idavaliacao = $id")) {
+                $db->execute("DELETE FROM avaliacao WHERE idavaliacao = $id");
                 return true;
             }
 

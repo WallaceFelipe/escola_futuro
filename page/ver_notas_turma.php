@@ -81,9 +81,14 @@ $provas = $conexao->select('*')->from('avaliacao')->where("turma_idturma = '$tur
 						$somatorio = 0;
 						foreach($array_provas as $id_prova){ ?>
 						<td><?php
-						$nota = ($conexao->select('nota')->from('nota')->where("avaliacao_idavaliacao = '$id_prova' and aluno_matricula = '".$a['matricula']."'")->limit(1)->executeNGet('nota') * 100);
-						$somatorio += $nota;
-						echo $nota;
+						$nota = $conexao->select('nota')->from('nota')->where("avaliacao_idavaliacao = '$id_prova' and aluno_matricula = '".$a['matricula']."'")->limit(1)->executeNGet('nota');
+						if($nota == null) {
+							echo "Em Aberto";
+						} else {
+							$nota = $nota * 100;
+							$somatorio += $nota;
+							echo $nota;
+						}
 						?></td>
 						<?php } ?>
 						<td>
