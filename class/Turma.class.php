@@ -48,9 +48,7 @@
             return $db->execute("DELETE FROM turma WHERE idturma = $this->idturma");
         }
 
-        public function carregaAlunos() {
-
-        }
+        
 
         public function carregaAvaliacao() {
 
